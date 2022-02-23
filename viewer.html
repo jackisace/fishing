@@ -1,0 +1,74 @@
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+<link rel="stylesheet" type="text/css" href="viewer style.css">
+
+<script>
+ 
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCPb3WtSl1v8iVRriv8GPq4xw1CRpnXHR0",
+    authDomain: "fishy-4b682.firebaseapp.com",
+    databaseURL: "https://fishy-4b682-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "fishy-4b682",
+    storageBucket: "fishy-4b682.appspot.com",
+    messagingSenderId: "804283916263",
+    appId: "1:804283916263:web:805892f9b24dab1181e742",
+    measurementId: "G-W77QTQXZHB"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  
+  var value = "";
+  
+
+function dbReset(){
+  let resetData = {};
+  resetData["Length"] = 0;
+  firebase.database().ref().set(resetData);
+}
+
+
+function dbGet(){
+  var ref = db.ref();
+    ref.on('value', (snapshot) => {
+        value = snapshot.val();
+    }); 
+}
+
+dbGet();
+
+<script src="viewer script.js"></script>
+
+               
+</script>
+
+
+
+  <head>
+    <title>viewer</title>
+    
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+  </head>
+  <body>
+
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3rj8Aqpgly4dOaXSXflGlyp5P3vNPi-c&callback=initMap&libraries=visualization&v=weekly"
+      async
+    ></script>
+
+    
+    
+<div class="row">
+  <button onclick="window.open('index.html')">Capture</button>
+</div>
+    
+  </body>
+
+
+
+
