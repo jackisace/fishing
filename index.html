@@ -75,6 +75,7 @@
 </script>
 
 <script src="script.js"></script>
+<body>
 
 <div class="row">
 
@@ -129,3 +130,17 @@
 <div class="row">
   <button onclick="window.open('viewer.html')">Viewer</button>
 </div>
+
+
+<div class="output"></div>
+<script language="javascript">
+    var realConsoleLog = console.log;
+    console.log = function () {
+        var message = [].join.call(arguments, " ");
+        $(".output").text(message);
+        realConsoleLog.apply(console, arguments);
+    };
+    console.log("hello", "my", "name", "is", "shantharuban");
+</script>
+
+</body>
