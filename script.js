@@ -1,5 +1,6 @@
 console.log("OK");
 
+
 let lakeLatLng = {lat: 52.64937, lng: -0.67724};
 function submit(){
   type = "";
@@ -42,7 +43,5 @@ function drift(){
   navigator.geolocation.getCurrentPosition(dbAdd,err,{enableHighAccuracy: true});
 }
 
-import { Storage } from "@aws-amplify/storage"
 
-await Storage.put("test.txt", "Hello");
 //document.documentElement.requestFullscreen();
