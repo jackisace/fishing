@@ -1,24 +1,131 @@
-<html>  
-<head>
-    <title>Heatmaps</title>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
 
 
-  </head>
-  <body>
-
-    <div id="map"></div>
-
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3rj8Aqpgly4dOaXSXflGlyp5P3vNPi-c&callback=initMap&libraries=visualization&v=weekly"
-      async
-    ></script>
+<script>
+  console.log("OK");
+  function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+  
+ 
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCPb3WtSl1v8iVRriv8GPq4xw1CRpnXHR0",
+    authDomain: "fishy-4b682.firebaseapp.com",
+    databaseURL: "https://fishy-4b682-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "fishy-4b682",
+    storageBucket: "fishy-4b682.appspot.com",
+    messagingSenderId: "804283916263",
+    appId: "1:804283916263:web:805892f9b24dab1181e742",
+    measurementId: "G-W77QTQXZHB"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  
+  var value = "";
+  
+  function dbReset(){
+  let resetData = {};
+  resetData["Length"] = 0;
+  firebase.database().ref().set(resetData);
+}
+  
+  
+  function dbGet(){
+    var ref = db.ref();
+      ref.on('value', (snapshot) => {
+          value = snapshot.val();
+      }); 
+  }
+  
+  var type = "";
+  
+  function dbAdd(position){
     
+    let data = {};
+    data["Lat"] = position.coords.latitude;
+    data["Long"] = position.coords.longitude;
+    data["Type"] = type;
     
-  <button class="butt" onclick="run()">CATCH</button>
-  <button class="butt">LOST</button>
-  <button class="butt">TROUT</button>
-  <button class="butt">CARP</button>
+    value = "";
+    dbGet();
+    while(value == ""){
+      console.log("getting");
+      sleep(100);
+    }
     
-  </body>
-</html>
+    firebase.database().ref(value["Length"] + 1).set(data);
+    firebase.database().ref("Length").set(value["Length"] + 1);
+  }
+  
+  function err(errorMsg){
+    console.log(errorMsg);
+  }
+  
+  //dbGet();
+  console.log("OK");
+
+  
+</script>
+
+
+
+<div class="row">
+
+<div class="radioButton">
+    <label>Catch
+    <br>
+    <input type="radio" name="a" value="Catch">
+    </label>
+  </div>
+
+  <div class="radioButton">
+    <label>Drop
+    <br>
+    <input type="radio" name="a" value="Drop">
+    </label>
+  </div>
+    
+</div>
+
+
+<div class="row">
+
+  <div class="radioButton">
+    <label>Small
+    <br>
+    <input type="radio" name="b" value="Small">
+    </label>
+  </div>
+
+  <div class="radioButton">
+    <label>Medium
+    <br>
+    <input type="radio" name="b" value="Medium">
+    </label>
+  </div>
+  
+  <div class="radioButton">
+    <label>Big
+    <br>
+    <input type="radio" name="b" value="Big">
+    </label>
+  </div>
+    
+</div>
+
+<div class="row">
+  <button onclick="submit()">Submit</button>
+</div>
+<div class="row">
+  <button onclick="drift()">Drift</button>
+</div>
+<div class="row">
+  <button onclick="window.open('https://codepen.io/jackisace/full/yLXjENR')">Viewer</button>
+</div>
